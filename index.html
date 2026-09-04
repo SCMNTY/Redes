@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCMNTY - Ecosistema Pro & MiniChat Global</title>
+    <title>SCMNTY - Ecosistema Nocturno</title>
     <!-- FontAwesome para iconos oficiales de marcas -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,113 +15,119 @@
         }
 
         body {
-            /* Fondo en movimiento simulado mediante animación de gradiente y patrones */
-            background: linear-gradient(-45deg, #05050a, #0f0c1b, #10002b, #001e1d);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            /* Fondo que simula un mar profundo de noche con oleaje sutil de gradiente */
+            background: linear-gradient(180deg, #020408, #050b18, #0b1d3a, #030813);
+            background-size: 100% 300%;
+            animation: tideMovement 18s ease infinite;
             color: #ffffff;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes tideMovement {
+            0% { background-position: 50% 0%; }
+            50% { background-position: 50% 100%; }
+            100% { background-position: 50% 0%; }
+        }
+
+        /* Cielo estrellado animado con parpadeo y profundidad */
+        .stars-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px #00ffff, 0 0 15px #ffffff; }
+        }
+
+        /* Efecto de reflejos de luz lunar / bioluminiscencia sutil en el fondo del mar */
+        body::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 20%, rgba(100, 200, 255, 0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 20% 80%, rgba(0, 255, 200, 0.04) 0%, transparent 50%);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .container {
             width: 100%;
-            max-width: 900px;
-            background: rgba(18, 18, 30, 0.88);
-            backdrop-filter: blur(14px);
-            border: 2px solid #00ffff55;
-            border-radius: 20px;
-            box-shadow: 0 0 35px rgba(0, 255, 255, 0.2), inset 0 0 20px rgba(0, 255, 255, 0.05);
-            padding: 35px;
+            max-width: 850px;
+            background: rgba(5, 12, 28, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 2px solid rgba(100, 210, 255, 0.25);
+            border-radius: 22px;
+            box-shadow: 0 0 50px rgba(0, 150, 255, 0.2), inset 0 0 30px rgba(0, 255, 255, 0.03);
+            padding: 40px;
             animation: fadeIn 0.8s ease-in-out;
+            z-index: 2;
+            position: relative;
         }
 
         header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 35px;
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             color: #fff;
-            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff;
-            margin-bottom: 8px;
+            text-shadow: 0 0 12px rgba(0, 220, 255, 0.8), 0 0 25px rgba(0, 150, 255, 0.5);
+            margin-bottom: 10px;
             letter-spacing: 2px;
         }
 
         header p {
-            color: #a5b4fc;
-            font-size: 1.05rem;
-            text-shadow: 0 0 5px rgba(165, 180, 252, 0.5);
-        }
-
-        /* Navegación de Pestañas */
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .tab-btn {
-            background: rgba(25, 25, 45, 0.9);
-            border: 1px solid #334155;
-            color: #94a3b8;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .tab-btn.active-tab {
-            background: rgba(0, 255, 255, 0.15);
-            border-color: #00ffff;
-            color: #00ffff;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active-content {
-            display: block;
-            animation: slideUp 0.4s ease;
+            color: #93c5fd;
+            font-size: 1.1rem;
+            text-shadow: 0 0 8px rgba(147, 197, 253, 0.4);
         }
 
         .grid-redes {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        /* Animación interactiva de botones de redes */
+        /* Tarjetas de redes con estilo cristal marino nocturno */
         .card-red {
-            background: rgba(25, 25, 45, 0.9);
-            border: 2px solid #334155;
+            background: rgba(10, 25, 50, 0.8);
+            border: 2px solid rgba(30, 58, 138, 0.6);
             border-radius: 14px;
-            padding: 22px 15px;
+            padding: 25px 15px;
             text-align: center;
             cursor: pointer;
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            color: #94a3b8;
+            color: #93c5fd;
         }
 
         .card-red:hover {
             transform: translateY(-6px) scale(1.03);
+            background: rgba(15, 35, 70, 0.9);
+            border-color: rgba(100, 200, 255, 0.8);
         }
 
         .card-red i {
@@ -142,60 +148,60 @@
             display: block;
         }
 
+        /* Destellos específicos por red con temática oceánica y estelar */
         .card-red[data-red="facebook"]:hover, .card-red.active[data-red="facebook"] {
             border-color: #1877f2;
-            box-shadow: 0 0 25px #1877f2, inset 0 0 12px #1877f2;
+            box-shadow: 0 0 25px rgba(24, 119, 242, 0.6), inset 0 0 12px rgba(24, 119, 242, 0.3);
             color: #1877f2;
         }
 
         .card-red[data-red="instagram"]:hover, .card-red.active[data-red="instagram"] {
             border-color: #e1306c;
-            box-shadow: 0 0 25px #e1306c, inset 0 0 12px #e1306c;
+            box-shadow: 0 0 25px rgba(225, 48, 108, 0.6), inset 0 0 12px rgba(225, 48, 108, 0.3);
             color: #e1306c;
         }
 
         .card-red[data-red="tiktok"]:hover, .card-red.active[data-red="tiktok"] {
             border-color: #00f2fe;
-            box-shadow: 0 0 25px #00f2fe, inset 0 0 12px #00f2fe;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.6), inset 0 0 12px rgba(0, 242, 254, 0.3);
             color: #00f2fe;
         }
 
         .card-red[data-red="x"]:hover, .card-red.active[data-red="x"] {
             border-color: #ffffff;
-            box-shadow: 0 0 25px #ffffff, inset 0 0 12px #ffffff;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6), inset 0 0 12px rgba(255, 255, 255, 0.3);
             color: #ffffff;
         }
 
         #panel-resultado {
-            background: rgba(10, 10, 20, 0.9);
+            background: rgba(3, 8, 20, 0.9);
             border-radius: 12px;
-            padding: 22px;
-            border: 1px solid #334155;
+            padding: 25px;
+            border: 1px solid rgba(50, 100, 180, 0.4);
             display: none;
-            margin-top: 15px;
+            margin-top: 20px;
             animation: slideUp 0.4s ease;
         }
 
         #panel-resultado h2 {
-            font-size: 1.5rem;
-            margin-bottom: 12px;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
             text-shadow: 0 0 10px currentColor;
         }
 
         .info-group {
-            margin-bottom: 10px;
-            font-size: 1rem;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
         }
 
         .info-group strong {
             color: #e2e8f0;
         }
 
-        /* Animación avanzada para botones de enlace */
         .btn-visitar {
             display: inline-block;
-            margin-top: 15px;
-            padding: 11px 22px;
+            margin-top: 20px;
+            padding: 12px 25px;
             background: transparent;
             color: #fff;
             border: 2px solid currentColor;
@@ -213,174 +219,6 @@
             box-shadow: 0 0 25px currentColor;
         }
 
-        /* Estilos del MiniChat Global */
-        .chat-wrapper {
-            background: rgba(12, 12, 22, 0.95);
-            border-radius: 14px;
-            border: 1px solid #334155;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .user-lock-banner {
-            background: rgba(0, 255, 255, 0.08);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            padding: 12px 15px;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .user-lock-banner span {
-            color: #00ffff;
-            font-weight: bold;
-        }
-
-        .chat-box {
-            height: 250px;
-            background: rgba(5, 5, 10, 0.9);
-            border: 1px solid #22223b;
-            border-radius: 10px;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .chat-message {
-            background: rgba(30, 30, 50, 0.7);
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            max-width: 80%;
-            border-left: 3px solid #00ffff;
-        }
-
-        .chat-message .author {
-            font-size: 0.75rem;
-            color: #00ffff;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-input {
-            flex: 1;
-            background: rgba(15, 15, 25, 0.9);
-            border: 1px solid #334155;
-            border-radius: 8px;
-            padding: 10px 14px;
-            color: #fff;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .chat-input:focus {
-            border-color: #00ffff;
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
-        }
-
-        .btn-enviar-chat {
-            background: #00ffff;
-            color: #0a0a14;
-            border: none;
-            padding: 0 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
-        }
-
-        .btn-enviar-chat:hover {
-            background: #fff;
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #fff;
-        }
-
-        /* Modal para selección única e inmutable de usuario */
-        #user-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(5, 5, 10, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-card {
-            background: rgba(18, 18, 30, 0.95);
-            border: 2px solid #00ffff;
-            border-radius: 16px;
-            padding: 30px;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
-        }
-
-        .modal-card h2 {
-            color: #00ffff;
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-        }
-
-        .modal-card p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-
-        .modal-input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(10, 10, 20, 0.9);
-            border: 1px solid #334155;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .modal-input:focus {
-            border-color: #00ffff;
-        }
-
-        .btn-lock-user {
-            width: 100%;
-            padding: 12px;
-            background: #00ffff;
-            color: #0a0a14;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-        }
-
-        .btn-lock-user:hover {
-            background: #fff;
-            box-shadow: 0 0 25px #fff;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
@@ -394,92 +232,72 @@
 </head>
 <body>
 
-    <!-- Modal de Selección Única de Usuario (Inmutable) -->
-    <div id="user-modal">
-        <div class="modal-card">
-            <h2>Identidad Global</h2>
-            <p>Elige tu nombre de usuario. Una vez fijado, <strong>ya no podrás cambiarlo nunca más</strong> en esta sesión.</p>
-            <input type="text" id="username-input" class="modal-input" placeholder="Ej. Socram01" autocomplete="off">
-            <button class="btn-lock-user" onclick="fijarUsuario()">Fijar e Ingresar</button>
-        </div>
-    </div>
+    <!-- Contenedor del cielo estrellado sobre el mar nocturno -->
+    <div class="stars-container" id="starsContainer"></div>
 
     <div class="container">
         <header>
             <h1>SCMNTY</h1>
-            <p>Ecosistema Digital, Redes Sociales & MiniChat Global</p>
+            <p>Bajo un mar de estrellas y marea nocturna. Selecciona una plataforma:</p>
         </header>
 
-        <!-- Navegación por pestañas -->
-        <div class="nav-tabs">
-            <button class="tab-btn active-tab" onclick="switchTab('redes')"><i class="fa-solid fa-network-wired"></i> Redes Sociales</button>
-            <button class="tab-btn" onclick="switchTab('chat')"><i class="fa-solid fa-comments"></i> MiniChat Global</button>
-        </div>
-
-        <!-- Contenido Pestaña Redes -->
-        <div id="tab-redes" class="tab-content active-content">
-            <div class="grid-redes">
-                <div class="card-red" data-red="facebook" onclick="seleccionarRed('facebook')">
-                    <i class="fa-brands fa-facebook"></i>
-                    <span>Facebook</span>
-                </div>
-                <div class="card-red" data-red="instagram" onclick="seleccionarRed('instagram')">
-                    <i class="fa-brands fa-instagram"></i>
-                    <span>Instagram</span>
-                </div>
-                <div class="card-red" data-red="tiktok" onclick="seleccionarRed('tiktok')">
-                    <i class="fa-brands fa-tiktok"></i>
-                    <span>TikTok</span>
-                </div>
-                <div class="card-red" data-red="x" onclick="seleccionarRed('x')">
-                    <i class="fa-brands fa-x-twitter"></i>
-                    <span>X</span>
-                </div>
+        <div class="grid-redes">
+            <div class="card-red" data-red="facebook" onclick="seleccionarRed('facebook')">
+                <i class="fa-brands fa-facebook"></i>
+                <span>Facebook</span>
             </div>
-
-            <div id="panel-resultado">
-                <h2 id="res-nombre">Plataforma</h2>
-                <div class="info-group"><strong>Formato Estrella:</strong> <span id="res-formato"></span></div>
-                <div class="info-group"><strong>Público Objetivo:</strong> <span id="res-publico"></span></div>
-                <div class="info-group"><strong>Estrategia de Crecimiento:</strong> <span id="res-estrategia"></span></div>
-                <a id="res-link" href="#" target="_blank" class="btn-visitar">Visitar Red Social ➔</a>
+            <div class="card-red" data-red="instagram" onclick="seleccionarRed('instagram')">
+                <i class="fa-brands fa-instagram"></i>
+                <span>Instagram</span>
+            </div>
+            <div class="card-red" data-red="tiktok" onclick="seleccionarRed('tiktok')">
+                <i class="fa-brands fa-tiktok"></i>
+                <span>TikTok</span>
+            </div>
+            <div class="card-red" data-red="x" onclick="seleccionarRed('x')">
+                <i class="fa-brands fa-x-twitter"></i>
+                <span>X</span>
             </div>
         </div>
 
-        <!-- Contenido Pestaña MiniChat Global -->
-        <div id="tab-chat" class="tab-content">
-            <div class="chat-wrapper">
-                <div class="user-lock-banner">
-                    <span>Usuario activo: <strong id="display-username">-</strong></span>
-                    <small style="color: #94a3b8;"><i class="fa-solid fa-lock"></i> Bloqueado permanentemente</small>
-                </div>
-                <div class="chat-box" id="chat-messages">
-                    <div class="chat-message">
-                        <span class="author">Sistema</span>
-                        ¡Bienvenido al MiniChat Global de SCMNTY! Participa con respeto.
-                    </div>
-                </div>
-                <div class="chat-input-area">
-                    <input type="text" id="chat-input-text" class="chat-input" placeholder="Escribe un mensaje global..." autocomplete="off" onkeypress="handleKeyPress(event)">
-                    <button class="btn-enviar-chat" onclick="enviarMensaje()">Enviar</button>
-                </div>
-            </div>
+        <div id="panel-resultado">
+            <h2 id="res-nombre">Plataforma</h2>
+            <div class="info-group"><strong>Formato Estrella:</strong> <span id="res-formato"></span></div>
+            <div class="info-group"><strong>Público Objetivo:</strong> <span id="res-publico"></span></div>
+            <div class="info-group"><strong>Estrategia de Crecimiento:</strong> <span id="res-estrategia"></span></div>
+            <a id="res-link" href="#" target="_blank" class="btn-visitar">Visitar Red Social ➔</a>
         </div>
     </div>
 
     <script>
-        let usuarioGlobal = "";
+        // Generador dinámico de estrellas hermosas parpadeantes en el fondo
+        const numStars = 65;
+        const container = document.getElementById('starsContainer');
 
-        function fijarUsuario() {
-            const input = document.getElementById('username-input');
-            const valor = input.value.trim();
-            if(valor === "") {
-                alert("Por favor, introduce un nombre de usuario válido.");
-                return;
-            }
-            usuarioGlobal = valor;
-            document.getElementById('display-username').innerText = usuarioGlobal;
-            document.getElementById('user-modal').style.display = 'none';
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            // Posición aleatoria
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            
+            // Tamaño variable (algunas más grandes y brillantes)
+            const size = Math.random() * 2.5 + 1;
+            
+            // Duración de parpadeo aleatoria para efecto natural
+            const duration = Math.random() * 4 + 2; 
+
+            star.style.left = `${x}%`;
+            star.style.top = `${y}%`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.setProperty('--duration', `${duration}s`);
+            
+            // Retraso aleatorio en la animación
+            star.style.animationDelay = `${Math.random() * 5}s`;
+
+            container.appendChild(star);
         }
 
         const datosRedes = {
@@ -541,45 +359,7 @@
 
             panel.style.display = 'block';
             panel.style.borderColor = data.color;
-            panel.style.boxShadow = `0 0 15px ${data.color}44`;
-        }
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active-content'));
-
-            if(tabName === 'redes') {
-                document.querySelector('.nav-tabs button:nth-child(1)').classList.add('active-tab');
-                document.getElementById('tab-redes').classList.add('active-content');
-            } else {
-                document.querySelector('.nav-tabs button:nth-child(2)').classList.add('active-tab');
-                document.getElementById('tab-chat').classList.add('active-content');
-            }
-        }
-
-        function enviarMensaje() {
-            const input = document.getElementById('chat-input-text');
-            const texto = input.value.trim();
-            if(texto === "") return;
-
-            const chatBox = document.getElementById('chat-messages');
-            const mensajeDiv = document.createElement('div');
-            mensajeDiv.className = 'chat-message';
-            mensajeDiv.innerHTML = `<span class="author">${usuarioGlobal}</span>${escapeHtml(texto)}`;
-            
-            chatBox.appendChild(mensajeDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-            input.value = "";
-        }
-
-        function handleKeyPress(e) {
-            if(e.key === 'Enter') {
-                enviarMensaje();
-            }
-        }
-
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            panel.style.boxShadow = `0 0 20px ${data.color}44`;
         }
     </script>
 </body>

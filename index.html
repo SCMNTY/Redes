@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCMNTY - Ecosistema Pro & MiniChat Global</title>
+    <!-- FontAwesome para iconos oficiales de marcas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /* Fondo en movimiento simulado mediante animación de gradiente y patrones */
+            background: linear-gradient(-45deg, #05050a, #0f0c1b, #10002b, #001e1d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(18, 18, 30, 0.88);
+            backdrop-filter: blur(14px);
+            border: 2px solid #00ffff55;
+            border-radius: 20px;
+            box-shadow: 0 0 35px rgba(0, 255, 255, 0.2), inset 0 0 20px rgba(0, 255, 255, 0.05);
+            padding: 35px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: #a5b4fc;
+            font-size: 1.05rem;
+            text-shadow: 0 0 5px rgba(165, 180, 252, 0.5);
+        }
+
+        /* Navegación de Pestañas */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            background: rgba(25, 25, 45, 0.9);
+            border: 1px solid #334155;
+            color: #94a3b8;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active-tab {
+            background: rgba(0, 255, 255, 0.15);
+            border-color: #00ffff;
+            color: #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active-content {
+            display: block;
+            animation: slideUp 0.4s ease;
+        }
+
+        .grid-redes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        /* Animación interactiva de botones de redes */
+        .card-red {
+            background: rgba(25, 25, 45, 0.9);
+            border: 2px solid #334155;
+            border-radius: 14px;
+            padding: 22px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            color: #94a3b8;
+        }
+
+        .card-red:hover {
+            transform: translateY(-6px) scale(1.03);
+        }
+
+        .card-red i {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .card-red:hover i {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .card-red span {
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            display: block;
+        }
+
+        .card-red[data-red="facebook"]:hover, .card-red.active[data-red="facebook"] {
+            border-color: #1877f2;
+            box-shadow: 0 0 25px #1877f2, inset 0 0 12px #1877f2;
+            color: #1877f2;
+        }
+
+        .card-red[data-red="instagram"]:hover, .card-red.active[data-red="instagram"] {
+            border-color: #e1306c;
+            box-shadow: 0 0 25px #e1306c, inset 0 0 12px #e1306c;
+            color: #e1306c;
+        }
+
+        .card-red[data-red="tiktok"]:hover, .card-red.active[data-red="tiktok"] {
+            border-color: #00f2fe;
+            box-shadow: 0 0 25px #00f2fe, inset 0 0 12px #00f2fe;
+            color: #00f2fe;
+        }
+
+        .card-red[data-red="x"]:hover, .card-red.active[data-red="x"] {
+            border-color: #ffffff;
+            box-shadow: 0 0 25px #ffffff, inset 0 0 12px #ffffff;
+            color: #ffffff;
+        }
+
+        #panel-resultado {
+            background: rgba(10, 10, 20, 0.9);
+            border-radius: 12px;
+            padding: 22px;
+            border: 1px solid #334155;
+            display: none;
+            margin-top: 15px;
+            animation: slideUp 0.4s ease;
+        }
+
+        #panel-resultado h2 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .info-group {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .info-group strong {
+            color: #e2e8f0;
+        }
+
+        /* Animación avanzada para botones de enlace */
+        .btn-visitar {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 11px 22px;
+            background: transparent;
+            color: #fff;
+            border: 2px solid currentColor;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .btn-visitar:hover {
+            background: currentColor;
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px currentColor;
+        }
+
+        /* Estilos del MiniChat Global */
+        .chat-wrapper {
+            background: rgba(12, 12, 22, 0.95);
+            border-radius: 14px;
+            border: 1px solid #334155;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .user-lock-banner {
+            background: rgba(0, 255, 255, 0.08);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-lock-banner span {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .chat-box {
+            height: 250px;
+            background: rgba(5, 5, 10, 0.9);
+            border: 1px solid #22223b;
+            border-radius: 10px;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-message {
+            background: rgba(30, 30, 50, 0.7);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            max-width: 80%;
+            border-left: 3px solid #00ffff;
+        }
+
+        .chat-message .author {
+            font-size: 0.75rem;
+            color: #00ffff;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(15, 15, 25, 0.9);
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .chat-input:focus {
+            border-color: #00ffff;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn-enviar-chat {
+            background: #00ffff;
+            color: #0a0a14;
+            border: none;
+            padding: 0 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+        }
+
+        .btn-enviar-chat:hover {
+            background: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #fff;
+        }
+
+        /* Modal para selección única e inmutable de usuario */
+        #user-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 5, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: rgba(18, 18, 30, 0.95);
+            border: 2px solid #00ffff;
+            border-radius: 16px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .modal-card h2 {
+            color: #00ffff;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .modal-card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(10, 10, 20, 0.9);
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .modal-input:focus {
+            border-color: #00ffff;
+        }
+
+        .btn-lock-user {
+            width: 100%;
+            padding: 12px;
+            background: #00ffff;
+            color: #0a0a14;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+
+        .btn-lock-user:hover {
+            background: #fff;
+            box-shadow: 0 0 25px #fff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Modal de Selección Única de Usuario (Inmutable) -->
+    <div id="user-modal">
+        <div class="modal-card">
+            <h2>Identidad Global</h2>
+            <p>Elige tu nombre de usuario. Una vez fijado, <strong>ya no podrás cambiarlo nunca más</strong> en esta sesión.</p>
+            <input type="text" id="username-input" class="modal-input" placeholder="Ej. Socram01" autocomplete="off">
+            <button class="btn-lock-user" onclick="fijarUsuario()">Fijar e Ingresar</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>SCMNTY</h1>
+            <p>Ecosistema Digital, Redes Sociales & MiniChat Global</p>
+        </header>
+
+        <!-- Navegación por pestañas -->
+        <div class="nav-tabs">
+            <button class="tab-btn active-tab" onclick="switchTab('redes')"><i class="fa-solid fa-network-wired"></i> Redes Sociales</button>
+            <button class="tab-btn" onclick="switchTab('chat')"><i class="fa-solid fa-comments"></i> MiniChat Global</button>
+        </div>
+
+        <!-- Contenido Pestaña Redes -->
+        <div id="tab-redes" class="tab-content active-content">
+            <div class="grid-redes">
+                <div class="card-red" data-red="facebook" onclick="seleccionarRed('facebook')">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                </div>
+                <div class="card-red" data-red="instagram" onclick="seleccionarRed('instagram')">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram</span>
+                </div>
+                <div class="card-red" data-red="tiktok" onclick="seleccionarRed('tiktok')">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <span>TikTok</span>
+                </div>
+                <div class="card-red" data-red="x" onclick="seleccionarRed('x')">
+                    <i class="fa-brands fa-x-twitter"></i>
+                    <span>X</span>
+                </div>
+            </div>
+
+            <div id="panel-resultado">
+                <h2 id="res-nombre">Plataforma</h2>
+                <div class="info-group"><strong>Formato Estrella:</strong> <span id="res-formato"></span></div>
+                <div class="info-group"><strong>Público Objetivo:</strong> <span id="res-publico"></span></div>
+                <div class="info-group"><strong>Estrategia de Crecimiento:</strong> <span id="res-estrategia"></span></div>
+                <a id="res-link" href="#" target="_blank" class="btn-visitar">Visitar Red Social ➔</a>
+            </div>
+        </div>
+
+        <!-- Contenido Pestaña MiniChat Global -->
+        <div id="tab-chat" class="tab-content">
+            <div class="chat-wrapper">
+                <div class="user-lock-banner">
+                    <span>Usuario activo: <strong id="display-username">-</strong></span>
+                    <small style="color: #94a3b8;"><i class="fa-solid fa-lock"></i> Bloqueado permanentemente</small>
+                </div>
+                <div class="chat-box" id="chat-messages">
+                    <div class="chat-message">
+                        <span class="author">Sistema</span>
+                        ¡Bienvenido al MiniChat Global de SCMNTY! Participa con respeto.
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input-text" class="chat-input" placeholder="Escribe un mensaje global..." autocomplete="off" onkeypress="handleKeyPress(event)">
+                    <button class="btn-enviar-chat" onclick="enviarMensaje()">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let usuarioGlobal = "";
+
+        function fijarUsuario() {
+            const input = document.getElementById('username-input');
+            const valor = input.value.trim();
+            if(valor === "") {
+                alert("Por favor, introduce un nombre de usuario válido.");
+                return;
+            }
+            usuarioGlobal = valor;
+            document.getElementById('display-username').innerText = usuarioGlobal;
+            document.getElementById('user-modal').style.display = 'none';
+        }
+
+        const datosRedes = {
+            facebook: {
+                nombre: "Facebook (Conexión Comunitaria)",
+                color: "#1877f2",
+                url: "https://www.facebook.com/marcos.corella.948792",
+                formato: "Videos largos, Carruseles informativos y Grupos de nicho.",
+                publico: "Adultos jóvenes, adultos contemporáneos y comunidades locales (25 - 55+ años).",
+                estrategia: "Fomentar la interacción en comunidades cerradas, pauta publicitaria hipersegmentada y generación de leads conversacionales."
+            },
+            instagram: {
+                nombre: "Instagram (Impacto Visual y Estética)",
+                color: "#e1306c",
+                url: "https://www.instagram.com/scmmnty",
+                formato: "Reels dinámicos, Historias interactivas y publicaciones estéticas en cuadrícula.",
+                publico: "Millennials y Generación Z (18 - 35 años) enfocados en estilo de vida, marcas y diseño.",
+                estrategia: "Consistencia visual absoluta, alianzas con creadores (influencers) y uso estratégico de tendencias en audio para Reels."
+            },
+            tiktok: {
+                nombre: "TikTok (Viralidad y Entretenimiento)",
+                color: "#00f2fe",
+                url: "https://www.tiktok.com/@srsocram01",
+                formato: "Videos cortos verticales de alto ritmo (9 a 30 segundos) con edición orgánica.",
+                publico: "Generación Z y audiencia nativa digital (14 - 28 años).",
+                estrategia: "Autenticidad sin filtros, enganche en los primeros 3 segundos, participación en retos virales y constancia diaria."
+            },
+            x: {
+                nombre: "X / Twitter (Debate y Actualidad)",
+                color: "#ffffff",
+                url: "https://x.com",
+                formato: "Hilos analíticos, encuestas en tiempo real y micro-updates conversacionales.",
+                publico: "Creadores de opinión, tecnólogos, periodistas, gamers y entusiastas de la industria.",
+                estrategia: "Liderazgo de opinión (*thought leadership*), participación ágil en temas de tendencia (*trending topics*) y debate transparente."
+            }
+        };
+
+        function seleccionarRed(redKey) {
+            document.querySelectorAll('.card-red').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            const selectedCard = document.querySelector(`[data-red="${redKey}"]`);
+            selectedCard.classList.add('active');
+
+            const data = datosRedes[redKey];
+            const panel = document.getElementById('panel-resultado');
+            
+            document.getElementById('res-nombre').innerText = data.nombre;
+            document.getElementById('res-nombre').style.color = data.color;
+            document.getElementById('res-formato').innerText = data.formato;
+            document.getElementById('res-publico').innerText = data.publico;
+            document.getElementById('res-estrategia').innerText = data.estrategia;
+            
+            const btnLink = document.getElementById('res-link');
+            btnLink.href = data.url;
+            btnLink.style.color = data.color;
+            btnLink.style.borderColor = data.color;
+
+            panel.style.display = 'block';
+            panel.style.borderColor = data.color;
+            panel.style.boxShadow = `0 0 15px ${data.color}44`;
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active-content'));
+
+            if(tabName === 'redes') {
+                document.querySelector('.nav-tabs button:nth-child(1)').classList.add('active-tab');
+                document.getElementById('tab-redes').classList.add('active-content');
+            } else {
+                document.querySelector('.nav-tabs button:nth-child(2)').classList.add('active-tab');
+                document.getElementById('tab-chat').classList.add('active-content');
+            }
+        }
+
+        function enviarMensaje() {
+            const input = document.getElementById('chat-input-text');
+            const texto = input.value.trim();
+            if(texto === "") return;
+
+            const chatBox = document.getElementById('chat-messages');
+            const mensajeDiv = document.createElement('div');
+            mensajeDiv.className = 'chat-message';
+            mensajeDiv.innerHTML = `<span class="author">${usuarioGlobal}</span>${escapeHtml(texto)}`;
+            
+            chatBox.appendChild(mensajeDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            input.value = "";
+        }
+
+        function handleKeyPress(e) {
+            if(e.key === 'Enter') {
+                enviarMensaje();
+            }
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>
